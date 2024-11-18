@@ -9,29 +9,16 @@
  * @param {number[]} nums
  * @return {number}
  */
-// var rob = function (nums) {
-//     let curMax = 0;
-//     function bt(i, cur) {
-//         if (i >= nums.length) {
-//             curMax = Math.max(curMax, cur);
-//             return;
-//         }
-//         bt(i + 2, cur + nums[i]);
-//         bt(i + 1, cur);
-//     }
-//     bt(0, 0);
-//     return curMax;
-// };
-
 var rob = function (nums) {
-    let n = nums.length;
-    if (!n) return -1;
-    let dp = new Array(n);
-    dp[0] = nums[0];
-    dp[1] = Math.max(nums[0], nums[1]);
-    for (let i = 2; i < n; i++) {
-        dp[i] = Math.max(nums[i] + dp[i - 2], dp[i - 1]);
+    const n = nums.length;
+    let rob1 = 0;
+    let rob2 = 0;
+    for (let num of nums) {
+        let cur = Math.max(rob1 + num, rob2);
+        rob1 = rob2;
+        rob2 = cur;
     }
-    return dp[n - 1];
-}
+    return rob2;
+};
 // @lc code=end
+
